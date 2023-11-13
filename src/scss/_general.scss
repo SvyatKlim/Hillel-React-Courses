@@ -12,8 +12,12 @@ body {
   margin: 0;
 }
 
-.bg-color {
+.bg-black {
   background-color: $black;
+}
+
+.min-h-100vh {
+  min-height: 100vh;
 }
 
 .container {
@@ -26,10 +30,12 @@ body {
 .d-flex {
   display: flex;
 }
-.flex-wrap{
+
+.flex-wrap {
   flex-wrap: wrap;
 }
-.d-flex-column-md{
+
+.d-flex-column-md {
   @media screen and (max-width: $breakpoint-md) {
     flex-direction: column;
   }
@@ -45,9 +51,9 @@ picture {
   }
 }
 
-.mw-480{
+.mw-480 {
   max-width: 480px;
-  @media screen and (max-width: $breakpoint-sm)  {
+  @media screen and (max-width: $breakpoint-sm) {
     max-width: unset;
   }
 }

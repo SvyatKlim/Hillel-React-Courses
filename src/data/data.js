@@ -1,4 +1,4 @@
-const cources = [
+const coursesData = [
     {
         id: 1,
         image:
@@ -31,6 +31,27 @@ const cources = [
         modules: 5,
         finishedModules: 3,
         duration: 5400,
-        isMyCource: true
+        isMyCourse: true
+    },
+    {
+        id: 3,
+        image:
+            "https://ultimatecourses.com/assets/share/courses/react-f02200115da09fd485a296e351972d7ea75701ed8d3d023d9f18c4b38e6b18b0.png",
+        level: "Begginer",
+        title: "Introduction Basic React Application",
+        user: {
+            avatar:
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png",
+            name: "Sam Doe"
+        },
+        rating: 3.2,
+        students: 45000,
+        modules: 18,
+        finishedModules: 11,
+        duration: 18000,
+        isMyCourse: true
     }
 ];
+
+
+export default coursesData;
