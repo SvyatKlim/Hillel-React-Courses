@@ -1,0 +1,53 @@
+@import "_variables.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $ff-main;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+}
+
+.bg-color {
+  background-color: $black;
+}
+
+.container {
+  max-width: 1360px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 0 auto;
+}
+
+.d-flex {
+  display: flex;
+}
+.flex-wrap{
+  flex-wrap: wrap;
+}
+.d-flex-column-md{
+  @media screen and (max-width: $breakpoint-md) {
+    flex-direction: column;
+  }
+}
+
+picture {
+  display: flex;
+
+  img {
+    width: 100%;
+    height: fit-content;
+    object-fit: cover;
+  }
+}
+
+.mw-480{
+  max-width: 480px;
+  @media screen and (max-width: $breakpoint-sm)  {
+    max-width: unset;
+  }
+}

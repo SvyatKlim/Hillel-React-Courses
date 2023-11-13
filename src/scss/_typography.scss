@@ -1,0 +1,30 @@
+@import "variables";
+
+h1 {
+  text-rendering: optimizeSpeed;
+  user-select: none;
+  line-height: 1.2;
+  margin: 0 auto;
+  font-weight: 500;
+  width: 100%;
+  font-size: 64px;
+}
+
+.color-white{
+  color: $white;
+}
+
+.fw{
+  &-700{
+    font-weight: 700;
+  }
+  &-500{
+    font-weight: 500;
+  }
+  &-300{
+    font-weight: 300;
+  }
+  &-100{
+    font-weight: 100;
+  }
+}
