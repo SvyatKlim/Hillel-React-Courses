@@ -6,10 +6,10 @@ import PlusIcon from '../../assets/pictures/plus.svg?react'
 console.log(MinusIcon)
 export const ProductCard = ({setCounterValue, product}) => {
     const [quantity,setQuantity] = useState(1);
-    const {images, category, description, discountPercentage, price, rating, stock, thumbnail, title} = product;
+    const {id, category, description, discountPercentage, price, thumbnail, title} = product;
     const priceWithoutDiscount = Math.trunc(price + ((price / 100) * discountPercentage))
 
-   const handlerButtonAddToCartClick = () => setCounterValue(quantity);
+   const handlerButtonAddToCartClick = () => setCounterValue(quantity,id);
     const handlerIncreaseQuantity = () => setQuantity(quantity + 1);
     const handlerDecreaseQuantity = () => setQuantity(quantity >= 2 ? quantity - 1 : 0);
 

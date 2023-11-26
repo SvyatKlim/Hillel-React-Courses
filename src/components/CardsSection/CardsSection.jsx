@@ -2,12 +2,13 @@ import './CardsSection.scss';
 import {useState} from "react";
 import {ProductCard} from "../ProductCard/ProductCard.jsx";
 
-export const CardsSection = ({products}) => {
+export const CardsSection = ({products, setAddedProducts}) => {
     const [counterVal, setCounterVal] = useState(0);
-    // const [idVal, setProductId] = useState([]);
-        function addProductToCart(quantity) {
-            setCounterVal(counterVal + quantity);
-        }
+    function addProductToCart(quantity,productId) {
+        setCounterVal(counterVal + quantity);
+        setAddedProducts(productId,counterVal)
+    }
+
     return <section className='cards-section container'>
         <div className="card-products__order d-flex">
             <h2 className='text-center h3'> Your select {counterVal} products </h2>
