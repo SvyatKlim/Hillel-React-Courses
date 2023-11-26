@@ -15,7 +15,7 @@ export const CardButton = ({buttonUrl = '#placeholder', buttonText = 'placeholde
         <>{additionalClassName === 'counter-button'
             ? <button className={`button button-card ${buttonClassName}`} onClick={handler}>{buttonText}</button>
             :
-            <a className={`button button-card ${buttonClassName}`} href={buttonUrl} onClick={handler()}>{buttonText}</a>
+            <a className={`button button-card ${buttonClassName}`} href={buttonUrl} onClick={handler}>{buttonText}</a>
         }
         </>
     )

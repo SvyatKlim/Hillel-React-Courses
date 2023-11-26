@@ -11,7 +11,7 @@ a.button, button {
   text-decoration: none;
   border: 1px solid $red;
   margin: 0 14px 0 0;
-  transition: background-color 0.4s ease-out, color 0.4s ease-out;
+  transition: background-color 0.4s ease-out, color 0.4s ease-out, border-color 0.4s ease-out;
 
   &:last-child {
     margin-right: 0;
@@ -56,6 +56,27 @@ a.button, button {
           fill: $black;
         }
       }
+    }
+  }
+
+  &.more-details{
+    cursor: pointer;
+    background-color: transparent;
+    color: $black;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    align-self: center;
+    padding: 12px 18px;
+    font-size: 14px;
+    border-radius: 40px;
+    border: 1px solid $black;
+    @media (hover: hover) {
+        &:hover{
+          background-color: $orange;
+          color: $white;
+          border-color: $orange;
+        }
     }
   }
 }

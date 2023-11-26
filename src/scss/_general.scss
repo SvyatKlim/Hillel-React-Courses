@@ -35,6 +35,11 @@ body {
   }
 }
 
+section{
+  z-index: 1;
+  position: relative;
+}
+
 picture {
   display: flex;
 

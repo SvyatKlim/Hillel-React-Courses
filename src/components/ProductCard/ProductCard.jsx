@@ -11,13 +11,13 @@ export const ProductCard = ({setCounterValue, product}) => {
 
    const handlerButtonAddToCartClick = () => setCounterValue(quantity,id);
     const handlerIncreaseQuantity = () => setQuantity(quantity + 1);
-    const handlerDecreaseQuantity = () => setQuantity(quantity >= 2 ? quantity - 1 : 0);
+    const handlerDecreaseQuantity = () => setQuantity(quantity >= 2 ? quantity - 1 : 1);
 
     return <div className='card-product'>
         <div className="card-product__main">
             <div className="card-product__img__wrapper d-flex">
                 <div className="card-product__img__discount">{Math.trunc(discountPercentage)}%</div>
-                <img className='card-product__img' src={thumbnail} alt="title"/>
+                <img className='card-product__img' src={thumbnail} alt={title}/>
             </div>
             <div className="card-product__info">
                 <div className="card-product__info__main">

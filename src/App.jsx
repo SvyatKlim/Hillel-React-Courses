@@ -7,7 +7,9 @@ import DetailsProductsSidebar from "./components/DetailsProductsSidebar/DetailsP
 function App() {
     const [productsList, setProductsList] = useState([])
     const [addedProducts, setAddedProducts] = useState([]);
+    const [isSidebarOpen, setSidebarOpen] = useState(false)
 
+    console.log(addedProducts) // Питання , чому у мене визивається console.log три рази (не враховуючі installHook) ?
     function getProductsFromApi() {
         return fetch('https://655072c57d203ab6626dcdc9.mockapi.io/products', {
             method: 'GET',
@@ -26,10 +28,18 @@ function App() {
 
     useEffect(() => {
         getProductsFromApi();
-        window.addEventListener("click", handleClick);
-        return () => window.removeEventListener("click", handleClick);
     }, []);
 
+    useEffect(() => {
+        document.addEventListener('mousedown', handleCloseSidebar)
+        return () => {
+            document.removeEventListener('mousedown', handleCloseSidebar)
+        }
+    }, [isSidebarOpen]);
+
+    const handleTriggerSidebar = () => {
+        return setSidebarOpen(!isSidebarOpen)
+    }
 
     const updatedProducts = (productId) => addedProducts.map(product => {
         if (product.productId === productId) {
@@ -38,29 +48,29 @@ function App() {
         return product;
     })
 
-    function handleAddedProducts(productId, productsQuantity) {
+    function handleCloseSidebar(event) {
+        if (event.target.classList.contains("sidebar-overlay")) {
+            return setSidebarOpen(!isSidebarOpen)
+        }
+    }
+
+    function handleAddedProducts(productId,quantity) {
         const products = addedProducts;
         const productIsset = products ? products.find(product => product.productId === productId) : false;
         if (productIsset) {
             setAddedProducts(updatedProducts(productId));
         } else {
-            setAddedProducts([...products, {'productId': productId, 'quantity': 1}]);
-        }
-    }
-
-    console.log(addedProducts)
-
-    function handleClick(event) {
-        if (event.target.classList.contains("button-card")) {
-            console.log('Added product', event.target)
+            setAddedProducts([...products, {'productId': productId, 'quantity': quantity}]);
         }
     }
 
     return (
         <>
-            <DetailsProductsSidebar productList={productsList} addedProductsItems={addedProducts}/>
+            <DetailsProductsSidebar productList={productsList} addedProductsItems={addedProducts}
+                                    handleTriggerSidebar={handleTriggerSidebar} isSidebarOpen={isSidebarOpen}/>
             <HeroBanner bgColor='bg-black' textColor="color-white"/>
-            <CardsSection products={productsList} setAddedProducts={handleAddedProducts}></CardsSection>
+            <CardsSection products={productsList} handleAddedProducts={handleAddedProducts}
+                          handleTriggerSidebar={handleTriggerSidebar}></CardsSection>
         </>
     )
 }
