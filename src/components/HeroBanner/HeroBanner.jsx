@@ -2,7 +2,7 @@ import './HeroBanner.scss';
 import {DefaultButton} from "../Buttons/Buttons.jsx";
 import mainImage from '../../assets/pictures/headphones.png'
 
-const HeroBanner = ({bgColor, textColor}) => {
+const HeroBanner = ({bgColor, textColor, handleNavigate}) => {
     const componentClass = ` ${bgColor} ${textColor}`;
     return (
         <section className={'hero-banner' + componentClass}>
@@ -13,7 +13,7 @@ const HeroBanner = ({bgColor, textColor}) => {
                         Nunc blandit rhoncus consequat.
                         Donec sodales enim et felis commodo.</p>
                     <div className="d-flex">
-                        <DefaultButton buttonUrl="#someUrl" buttonText="Some Button"/>
+                        <DefaultButton handler={handleNavigate} buttonText="Redirect to About Us"/>
                     </div>
                 </div>
                 <picture className="hero-banner__img">

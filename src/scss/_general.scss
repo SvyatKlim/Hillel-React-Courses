@@ -11,6 +11,9 @@ body {
   font-weight: 400;
   margin: 0;
 }
+section{
+  padding-top: 70px;
+}
 
 .bg-color {
   background-color: $black;
@@ -55,4 +58,8 @@ picture {
   @media screen and (max-width: $breakpoint-sm)  {
     max-width: unset;
   }
+}
+.custom-logo{
+  max-width: 250px;
+  display: flex;
 }

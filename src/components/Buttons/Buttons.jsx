@@ -1,10 +1,13 @@
 import './buttons.scss';
 
-export const DefaultButton = ({buttonUrl = '#placeholder', buttonText = 'placeholder', additionalClassName}) => {
+export const DefaultButton = ({additionalClassName,buttonUrl = '#placeholder', buttonText = 'placeholder', handler = null}) => {
     const buttonClassName = additionalClassName ? additionalClassName : '';
     return (
         <>
-            <a className={`button button-red ${buttonClassName}`} href={buttonUrl}>{buttonText}</a>
+            { handler !== null
+                ? <button className={`button button-red ${buttonClassName}`} onClick={handler} >{buttonText}</button>
+                : <a className={`button button-red ${buttonClassName}`} href={buttonUrl} >{buttonText}</a>
+            }
         </>
     )
 }
@@ -14,8 +17,7 @@ export const CardButton = ({buttonUrl = '#placeholder', buttonText = 'placeholde
     return (
         <>{additionalClassName === 'counter-button'
             ? <button className={`button button-card ${buttonClassName}`} onClick={handler}>{buttonText}</button>
-            :
-            <a className={`button button-card ${buttonClassName}`} href={buttonUrl} onClick={handler}>{buttonText}</a>
+            : <a className={`button button-card ${buttonClassName}`} href={buttonUrl} onClick={handler}>{buttonText}</a>
         }
         </>
     )

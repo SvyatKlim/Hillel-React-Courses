@@ -1,0 +1,42 @@
+@import "../../scss/variables";
+
+.users-list {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 15px;
+  margin: 60px auto 100px;
+  max-width: 980px;
+  padding: 30px 30px 0 ;
+  display: flex;
+  flex-direction: column;
+
+  li {
+    max-width: 920px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+
+    p {
+      width: 25%;
+    }
+
+    a {
+      width: 25%;
+      background-color: $danger-color;
+      color: white;
+      padding: 12px 18px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 8px;
+      transition: background-color 0.4s ease-out;
+      @media (hover: hover) {
+        &:hover {
+          background-color: $orange;
+        }
+      }
+    }
+
+  }
+}

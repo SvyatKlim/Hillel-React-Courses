@@ -1,0 +1,23 @@
+{
+  "navigation": [
+    {
+      "@type": "SiteNavigationElement",
+      "position": 1,
+      "name": "Users List",
+      "url": "/users"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 2,
+      "name": "About",
+      "url": "/about"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 4,
+      "name": "Contact Us",
+      "url": "/contact-us"
+    }
+
+  ]
+}
