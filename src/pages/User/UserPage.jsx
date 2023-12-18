@@ -1,18 +1,14 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
+import {ErrorMessage} from "../../components/Errors/Errors.jsx";
+import {SuspensePreloader} from "../../components/Preloaders/Preloaders.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
+import {AuthContext} from "../Root/Root.jsx";
 
 const UserPage = () => {
     const {userId} = useParams();
-    const [user, setUser] = useState({})
-
-    useEffect(() => {
-        const getUserById = async () => {
-            const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
-            const data = await res.json();
-            setUser(data);
-        }
-        getUserById();
-    }, [userId]);
+    const [isUserAuthenticated] = useContext(AuthContext);
+    const {data, isLoading, error} = useFetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
 
     const UserInfoList = ({dataArr}) => {
         return (<ul>
@@ -30,12 +26,17 @@ const UserPage = () => {
             </li>
         )
     }
-    const data = Object.entries(user);
+    const userData = Object.entries(data);
 
     return (
         <section className="user">
-            <h2 className="text-center mt-60">Hello: {user.name}</h2>
-            <UserInfoList dataArr={data}/>
+            {!isUserAuthenticated ? <ErrorMessage message="Please login"/> :
+                error ? <ErrorMessage message={error}/> :
+                    !isLoading ? <>
+                            <h2 className="text-center mt-60">Hello: {userData.name}</h2>
+                            <UserInfoList dataArr={userData}/>
+                        </>
+                        : <SuspensePreloader message='Loading Info ...'/>}
         </section>
     )
 }

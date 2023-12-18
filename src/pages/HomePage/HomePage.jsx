@@ -1,35 +1,15 @@
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import HeroBanner from '../../components/HeroBanner/HeroBanner.jsx'
 import {CardsSection} from "../../components/CardsSection/CardsSection.jsx";
 import DetailsProductsSidebar from "../../components/DetailsProductsSidebar/DetailsProductsSidebar.jsx";
 import {useNavigate} from "react-router-dom";
-function HomePage({isUserAuthenticated, setIsUserAuthenticated}) {
-    const [productsList, setProductsList] = useState([])
+import useFetch from "../../hooks/useFetch.jsx";
+
+function HomePage() {
+    const {data, isLoading, error, refetch} = useFetch('https://655072c57d203ab6626dcdc9.mockapi.io/products');
     const [addedProducts, setAddedProducts] = useState([]);
     const [isSidebarOpen, setSidebarOpen] = useState(false)
     const navigate = useNavigate();
-
-
-    function getProductsFromApi() {
-        return fetch('https://655072c57d203ab6626dcdc9.mockapi.io/products', {
-            method: 'GET',
-            headers: {'content-type': 'application/json'},
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            // handle error
-        }).then(data => {
-            setProductsList([...data]);
-        }).catch(error => {
-            alert('We have Some Error !!')
-        })
-    }
-
-    useEffect(() => {
-        getProductsFromApi();
-    }, []);
-
     useEffect(() => {
         document.addEventListener('mousedown', handleCloseSidebar)
         return () => {
@@ -37,8 +17,15 @@ function HomePage({isUserAuthenticated, setIsUserAuthenticated}) {
         }
     }, [isSidebarOpen]);
 
-    const handleTriggerSidebar = () => {
+
+    const handleTriggerSidebar =  useCallback(() => {
         return setSidebarOpen(!isSidebarOpen)
+    },[]);
+
+    function handleCloseSidebar(event) {
+        if (event.target.classList.contains("sidebar-overlay")) {
+            return setSidebarOpen(!isSidebarOpen)
+        }
     }
 
     const updatedProducts = (productId) => addedProducts.map(product => {
@@ -47,12 +34,6 @@ function HomePage({isUserAuthenticated, setIsUserAuthenticated}) {
         }
         return product;
     })
-
-    function handleCloseSidebar(event) {
-        if (event.target.classList.contains("sidebar-overlay")) {
-            return setSidebarOpen(!isSidebarOpen)
-        }
-    }
 
     function handleAddedProducts(productId, quantity) {
         const products = addedProducts;
@@ -67,16 +48,18 @@ function HomePage({isUserAuthenticated, setIsUserAuthenticated}) {
     const handleNavigate = () => {
         navigate("/about");
     };
-
     return (
         <>
-            <DetailsProductsSidebar productList={productsList} addedProductsItems={addedProducts}
+            <DetailsProductsSidebar productList={data} addedProductsItems={addedProducts}
                                     handleTriggerSidebar={handleTriggerSidebar} isSidebarOpen={isSidebarOpen}/>
-
             <HeroBanner bgColor='bg-black' textColor="color-white" handleNavigate={handleNavigate}/>
-
-            <CardsSection products={productsList} handleAddedProducts={handleAddedProducts}
-                          handleTriggerSidebar={handleTriggerSidebar}></CardsSection>
+            <CardsSection products={data}
+                          handleAddedProducts={handleAddedProducts}
+                          handleTriggerSidebar={handleTriggerSidebar}
+                          handleTriggerFetch={refetch}
+                          isLoading={isLoading}
+                          error={error}
+            ></CardsSection>
         </>
     )
 }

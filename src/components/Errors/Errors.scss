@@ -1,0 +1,26 @@
+@import '../../scss/variables';
+
+.error-message {
+  color: $white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  &-wrapper{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba($red, 0.30);
+    border-radius: 25px;
+    min-height: 400px;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}

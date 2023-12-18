@@ -4,7 +4,6 @@ import PlusIcon from '../../assets/pictures/plus.svg?react'
 
 const DetailsProductsSidebar = ({productList, addedProductsItems,handleTriggerSidebar,isSidebarOpen}) => {
     let filteredOrderArray = [];
-    console.log('DetailsProductSidebar') // Питання , чому у мене визивається console.log 2 рази ?
     const filterProductsItems = () => addedProductsItems.filter((item) => {
         return productList.find((item2) => {
 

@@ -11,6 +11,7 @@ const Root = () => {
     }, []);
     const setAuthUserId = useCallback((response) => {
         setUserAuthenticatedId(response);
+        console.log(userAuthenticatedId)
     }, []);
     return (
         <>

@@ -15,7 +15,7 @@ export const DefaultButton = ({additionalClassName,buttonUrl = '#placeholder', b
 export const CardButton = ({buttonUrl = '#placeholder', buttonText = 'placeholder', handler, additionalClassName}) => {
     const buttonClassName = additionalClassName ? additionalClassName : '';
     return (
-        <>{additionalClassName === 'counter-button'
+        <>{additionalClassName === 'counter-button' || buttonUrl === ''
             ? <button className={`button button-card ${buttonClassName}`} onClick={handler}>{buttonText}</button>
             : <a className={`button button-card ${buttonClassName}`} href={buttonUrl} onClick={handler}>{buttonText}</a>
         }
