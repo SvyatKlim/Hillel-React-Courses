@@ -5,6 +5,22 @@
   justify-content: flex-end;
   width: 100%;
   position: relative;
+  &__footer{
+    position: sticky;
+    background-color: white;
+    min-height: 60px;
+    bottom: -54px;
+    z-index: 4;
+    width: 100%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+
+    .reset-button{
+      margin-left: auto;
+    }
+  }
 
   &-overlay{
     position: fixed;
@@ -29,9 +45,11 @@
   &__wrapper {
     padding: 8vh 30px 4vh;
     width: 100%;
-    max-width: 520px;
+    overflow-y: scroll;
+    max-width: 640px;
     position: fixed;
-    height: 100vw;
+    height: 100%;
+    min-height: 100vh;
     background-color: $white;
     right: 0;
     top: 0;
@@ -48,6 +66,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-height: calc(100% - 184px);
   }
   &__header{
     padding-left: 20px;

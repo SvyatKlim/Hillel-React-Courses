@@ -1,11 +1,9 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import {useState, useEffect, useCallback, useRef} from 'react';
 
 const useFetch = (url) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [shouldFetch, setShouldFetch] = useState(true);
-    const isInitialFetch = useRef(true);
     const isMounted = useRef(true);
     const abortControllerRef = useRef(new AbortController());
 
@@ -34,17 +32,15 @@ const useFetch = (url) => {
             setError(null);
             setIsLoading(true);
 
-            const response = await fetch(url, { signal });
+            const response = await fetch(url, {signal});
 
             if (!response.ok) {
                 throw new Error("Failed to fetch data");
             }
 
             const responseData = await response.json();
-            const processedData = isInitialFetch.current ? responseData : shuffleArray(responseData);
-
             if (isMounted.current) {
-                setData(processedData);
+                setData(responseData);
             }
         } catch (e) {
             if (isMounted.current && e.name !== 'AbortError') {
@@ -53,25 +49,18 @@ const useFetch = (url) => {
         } finally {
             if (isMounted.current) {
                 setIsLoading(false);
-                isInitialFetch.current = false;
             }
         }
     };
 
     useEffect(() => {
-        if (shouldFetch) {
-            fetchData();
-            setShouldFetch(false);
-        }
-    }, [shouldFetch]);
-
-    const refetch = useCallback(() => setShouldFetch(true), []);
+        fetchData();
+    }, []);
 
     return {
         data,
         isLoading,
         error,
-        refetch,
     };
 };
 

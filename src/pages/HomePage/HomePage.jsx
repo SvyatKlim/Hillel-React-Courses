@@ -3,62 +3,31 @@ import HeroBanner from '../../components/HeroBanner/HeroBanner.jsx'
 import {CardsSection} from "../../components/CardsSection/CardsSection.jsx";
 import DetailsProductsSidebar from "../../components/DetailsProductsSidebar/DetailsProductsSidebar.jsx";
 import {useNavigate} from "react-router-dom";
-import useFetch from "../../hooks/useFetch.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchProducts} from "../../redux/slices/cartSlice.js";
+import {triggerSidebar} from "../../redux/slices/globalSlice.js";
 
 function HomePage() {
-    const {data, isLoading, error, refetch} = useFetch('https://655072c57d203ab6626dcdc9.mockapi.io/products');
-    const [addedProducts, setAddedProducts] = useState([]);
-    const [isSidebarOpen, setSidebarOpen] = useState(false)
+    const dispatch = useDispatch();
+    const {products, isLoading, isError} = useSelector(store => store.cart);
     const navigate = useNavigate();
+
     useEffect(() => {
-        document.addEventListener('mousedown', handleCloseSidebar)
-        return () => {
-            document.removeEventListener('mousedown', handleCloseSidebar)
-        }
-    }, [isSidebarOpen]);
+        dispatch(fetchProducts());
+    }, [dispatch]);
 
+    const handleTriggerSidebar = useCallback(() => {
+        return dispatch(triggerSidebar());
+    }, []);
 
-    const handleTriggerSidebar =  useCallback(() => {
-        return setSidebarOpen(!isSidebarOpen)
-    },[]);
-
-    function handleCloseSidebar(event) {
-        if (event.target.classList.contains("sidebar-overlay")) {
-            return setSidebarOpen(!isSidebarOpen)
-        }
-    }
-
-    const updatedProducts = (productId) => addedProducts.map(product => {
-        if (product.productId === productId) {
-            product.quantity++;
-        }
-        return product;
-    })
-
-    function handleAddedProducts(productId, quantity) {
-        const products = addedProducts;
-        const productIsset = products ? products.find(product => product.productId === productId) : false;
-        if (productIsset) {
-            setAddedProducts(updatedProducts(productId));
-        } else {
-            setAddedProducts([...products, {'productId': productId, 'quantity': quantity}]);
-        }
-    }
-
-    const handleNavigate = () => {
-        navigate("/about");
-    };
     return (
         <>
-            <DetailsProductsSidebar productList={data} addedProductsItems={addedProducts}
-                                    handleTriggerSidebar={handleTriggerSidebar} isSidebarOpen={isSidebarOpen}/>
-            <HeroBanner bgColor='bg-black' textColor="color-white" handleNavigate={handleNavigate}/>
-            <CardsSection products={data}
-                          handleAddedProducts={handleAddedProducts}
+            <DetailsProductsSidebar handleTriggerSidebar={handleTriggerSidebar}/>
+            <HeroBanner bgColor='bg-black' textColor="color-white" handleNavigate={() => navigate("/about")}/>
+            <CardsSection products={products}
                           handleTriggerSidebar={handleTriggerSidebar}
-                          handleTriggerFetch={refetch}
                           isLoading={isLoading}
-                          error={error}
+                          error={isError}
             ></CardsSection>
         </>
     )

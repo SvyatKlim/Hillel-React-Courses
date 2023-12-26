@@ -67,3 +67,10 @@ picture {
   max-width: 250px;
   display: flex;
 }
+
+.sidebar-is-open{
+  overflow-y: hidden;
+  .sidebar{
+
+  }
+}

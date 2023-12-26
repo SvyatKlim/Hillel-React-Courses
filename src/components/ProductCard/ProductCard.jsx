@@ -3,13 +3,19 @@ import {CardButton, QuantityButton} from "../Buttons/Buttons.jsx";
 import {useState} from "react";
 import MinusIcon from '../../assets/pictures/minus.svg?react'
 import PlusIcon from '../../assets/pictures/plus.svg?react'
-console.log(MinusIcon)
-export const ProductCard = ({setCounterValue, product}) => {
-    const [quantity,setQuantity] = useState(1);
-    const {id, category, description, discountPercentage, price, thumbnail, title} = product;
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/slices/cartSlice.js";
+
+export const ProductCard = ({product}) => {
+    const dispatch = useDispatch();
+    const [quantity, setQuantity] = useState(1);
+    const { category, description, discountPercentage, price, thumbnail, title} = product;
     const priceWithoutDiscount = Math.trunc(price + ((price / 100) * discountPercentage))
 
-   const handlerButtonAddToCartClick = () => setCounterValue(quantity,id);
+    const handlerButtonAddToCartClick = () => {
+        dispatch(addToCart({...product, quantity: quantity}));
+        setQuantity(1)
+    };
     const handlerIncreaseQuantity = () => setQuantity(quantity + 1);
     const handlerDecreaseQuantity = () => setQuantity(quantity >= 2 ? quantity - 1 : 1);
 
@@ -34,7 +40,8 @@ export const ProductCard = ({setCounterValue, product}) => {
             <QuantityButton handler={handlerIncreaseQuantity} text={<PlusIcon/>}/>
 
         </div>
-        <CardButton handler={handlerButtonAddToCartClick} additionalClassName='counter-button' buttonText='Add to Cart'/>
+        <CardButton handler={handlerButtonAddToCartClick} additionalClassName='counter-button'
+                    buttonText='Add to Cart'/>
 
     </div>
 }
